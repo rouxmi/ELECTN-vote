@@ -254,20 +254,9 @@
                         console.log('Oups, il y a eu un problème ');
                     });
                 var description = document.getElementById("description");
-                description.innerHTML = "<h1 style='padding-bottom: 400px; padding-top: 80px; color: #fff;'>Tu t'es bien fait barouder !</h1>";
+                description.innerHTML = "<h1 style='padding-bottom: 400px; padding-top: 80px; width:100%; height:100%; color: #000;'>Merci pour ton vote ! Il a bien était pris en compte.</h1>";
                 description.style.width = "100%"
                 description.style.height = "100%";
-                // set image to background of description div from img/ folder
-                description.style.backgroundImage = "url('img/baroudeurs.jpg')";
-                description.style.backgroundSize = "cover";
-                var count = 0;
-                // on click redirect to https://lesbaroudeurs.telecomnancy.net/
-                description.onclick = function() {
-                  count++;
-                  if (count == 2){
-                    window.location.href = "https://lesbaroudeurs.telecomnancy.net/";
-                  }
-                }
             });
         }
       </script>
@@ -396,7 +385,7 @@
       </div>
       <!-- Grid column -->
       <div class="col-sm-4">
-        <text>Baptiste Monchicourt</text>
+        <text>Les Baroudeurs</text>
       </div>
     </div>
     <!-- Copyright -->
