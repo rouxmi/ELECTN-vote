@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>ElecTN - Vote Intégration</title>
+    <title>ElecTN - Votes</title>
         <!-- CSS for menu bar and side bar -->
     <link rel="stylesheet" type="text/css" href="./css/menus.css">
     <link rel="stylesheet" type="text/css" href="./css/fa_all.css">
@@ -183,31 +183,59 @@
         //const entete = "";
         document.location.href = entete + id;
       }
+
+      
     </script>
 
-    <div class="description" style="text-align: left !important;">
-      <h4 style="margin-bottom: 15px; margin-top: 80px;">Qui peut se porter candidat pour les bureaux restreints des clubs ?</h4>
-      <p>Seuls les 1A et 2A, CETEN et étant à l'école, pour être candidats. Mais ce n'est pas tout, il y a des particularités qui dépendent du statut des clubs ! Voici les règles qui s'appliquent :</p>
-      <ul style="font-size: 15px;">
-        <li>Pour les clubs événementiels : tout le monde !</li>
-        <li>Pour les clubs de loisirs et de services : seuls les membres !</li>
-      </ul>
+    <div class="description" style="text-align: center !important;" id="description">
+      <h3 style="margin-bottom: 15px; margin-top: 80px;">Votes Intégration</h3>
+      <hr style="background-color: #fafafa">
+      <p>
+        Le vote sera ouvert le Vendredi 26/01/2024 de 8h à 18h. En cas de problème, contacte le BDE au plus vite.
+      </p>
+      </br>
+      <p>
+        Après une semaine de campagne, les différentes listes ont pu présenter leurs programmes et leurs membres (et te régaler avec des rallyes, des soirées, des jeux, ...). Il est maintenant temps de voter pour la liste que tu souhaites voir gagner l'élection. Tu peux voter pour une liste ou voter blanc. Tu ne peux pas voter pour plusieurs listes.
+      </p>
+      </br>
+      <hr style="background-color: #fafafa">
+      <h3 style="margin-bottom: 15px; margin-top: 20px;">Vote pour ta liste:</h3>
+      <div class="wrapper-listes" style="padding: 20px; text-align: center !important;">
+        <!-- // It should have 3 div: "Liste 1", "Liste 2", "Vote blanc" with a checkbox in front of each one. that will be checked when the user clicks on the text or the checkbox.
 
-      <h4 style="margin-bottom: 15px; margin-top: 25px;">Qui peut voter pour chaque club ?</h4>
-      <p>Seuls les CETEN peuvent voter. Mais ce n'est pas tout, comme pour les candidatures, il y a des particularités qui dépendent du statut des clubs ! Voici les règles qui s'appliquent :</p>
-      <ul style="font-size: 15px;">
-        <li>Pour les clubs événementiels et de services : tout le monde !</li>
-        <li>Pour les clubs de loisirs : seuls les membres !</li>
-      </ul>
+        // The user can only check one checkbox. If he checks another one, the previous one is unchecked.
 
-      <h4 style="margin-bottom: 15px; margin-top: 25px;">Quand peut-on déclarer ses candidatures et vœux ?</h4>
-      <p>La période de candidatures se déroule de jeudi 09 janvier 2020 à 00h01 à lundi 13 janvier 2020 à 23h59.</p>
+        // When the user clicks on the description div is replaced by a div with a text "Tu as voté pour la liste 1" or "Tu as voté blanc" depending on the checkbox checked. -->
 
-      <h4 style="margin-bottom: 15px; margin-top: 25px;">Quand peut-on voter ?</h4>
-      <p>La période de votes se déroule de mardi 14 janvier 2020 à 8h00 à mardi 14 janvier 2020 à 18h00.</p>
-
-      <h4 style="margin-bottom: 15px; margin-top: 25px;">D'autres questions ?</h4>
-      <p>Contacte l'équipe qui s'occupe de la plateforme à l'adresse suivant : <a href="mailto:electn@telecomnancy.net">electn@telecomnancy.net</a>.</p>
+        <div class="liste">
+          <input type="checkbox" id="liste1" name="liste1" value="liste1" style="width: 15px; height: 15px;">
+          <label for="liste1" style="font-size: 20px;">N'inté'ndo</label>
+        </div>
+        <div class="liste">
+          <input type="checkbox" id="liste2" name="liste2" value="liste2" style="width: 15px; height: 15px;">
+          <label for="liste2" style="font-size: 20px;">N'inté'ndo</label>
+        </div>
+        <div class="liste">
+          <input type="checkbox" id="blanc" name="blanc" value="blanc" style="width: 15px; height: 15px;">
+          <label for="blanc" style="font-size: 20px;">Vote blanc</label>
+        </div>
+      </div>
+      <script>
+        function vote(){
+          // get the description div 
+          var description = document.getElementById("description");
+          description.innerHTML = "<h1 style='padding-bottom: 400px; padding-top: 80px; color: #fff;'>Tu t'es bien fait barou-niquer !</h1>";
+          description.style.width = "100%"
+          description.style.height = "100%";
+          // set image to background of description div from img/ folder
+          description.style.backgroundImage = "url('img/baroudeurs.jpg')";
+          description.style.backgroundSize = "cover";
+        }
+      </script>
+      <hr style="background-color: #fafafa">
+      <div class="wrapper-validation" style="padding: 20px; text-align: center !important;">
+        <button type="button" class="btn" style="margin-top: 20px; background-color: #820A61; color: #fff;" onclick="vote()">Voter</button>
+      </div>
     </div>
 
     <!-- Footer -->
