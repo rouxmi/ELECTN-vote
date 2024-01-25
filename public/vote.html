@@ -25,6 +25,12 @@
     <link rel="icon" href="https://www.ceten.fr/wp-content/uploads/2017/10/cropped-icone-1-192x192.png" sizes="192x192">
     <link rel="apple-touch-icon-precomposed" href="https://www.ceten.fr/wp-content/uploads/2017/10/cropped-icone-1-180x180.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+          emailjs.init('lVzgYbq-SYzdCv-uB');
+      })();
+  </script>
   </head>
 
 
@@ -207,44 +213,65 @@
         // The user can only check one checkbox. If he checks another one, the previous one is unchecked.
 
         // When the user clicks on the description div is replaced by a div with a text "Tu as voté pour la liste 1" or "Tu as voté blanc" depending on the checkbox checked. -->
-
-        <div class="liste">
-          <input type="checkbox" id="liste1" name="liste1" value="liste1" style="width: 15px; height: 15px;">
-          <label for="liste1" style="font-size: 20px;">N'inté'ndo</label>
-        </div>
-        <div class="liste">
-          <input type="checkbox" id="liste2" name="liste2" value="liste2" style="width: 15px; height: 15px;">
-          <label for="liste2" style="font-size: 20px;">N'inté'ndo</label>
-        </div>
-        <div class="liste">
-          <input type="checkbox" id="blanc" name="blanc" value="blanc" style="width: 15px; height: 15px;">
-          <label for="blanc" style="font-size: 20px;">Vote blanc</label>
-        </div>
+        <form id="lolform" >
+          <input type="hidden" name="contact_number">
+          <input type="hidden" name="liste" value="0" id="value-vote">
+          <div class="liste">
+            <input type="checkbox" id="liste1" name="liste1" value="liste1" style="width: 15px; height: 15px;"
+            onclick="document.getElementById('value-vote').value = this.checked ? '1' : '0'; document.getElementById('liste2').checked = false; document.getElementById('blanc').checked = false;">
+            <label for="liste1" style="font-size: 20px;">N'inté'ndo</label>
+          </div>
+          <div class="liste">
+            <input type="checkbox" id="liste2" name="liste2" value="liste2" style="width: 15px; height: 15px;" onclick="document.getElementById('value-vote').value = this.checked ? '2' : '0'; document.getElementById('liste1').checked = false; document.getElementById('blanc').checked = false;">
+            <label for="liste2" style="font-size: 20px;">N'inté'ndo</label>
+          </div>
+          <div class="liste">
+            <input type="checkbox" id="blanc" name="blanc" value="blanc" style="width: 15px; height: 15px;"
+            onclick="document.getElementById('value-vote').value = this.checked ? '3' : '0';document.getElementById('liste1').checked = false;document.getElementById('liste2').checked = false;">
+            <label for="blanc" style="font-size: 20px;">Vote blanc</label>
+          </div>
+          <hr style="background-color: #fafafa">
+          <input type="submit" class="btn" id="feur" style="margin-top: 20px; background-color: #820A61; color: #fff;" value="Voter">
+        </form>
       </div>
-      <script>
-        function vote(){
-          // get the description div 
-          var description = document.getElementById("description");
-          description.innerHTML = "<h1 style='padding-bottom: 400px; padding-top: 80px; color: #fff;'>Tu t'es bien fait barouder !</h1>";
-          description.style.width = "100%"
-          description.style.height = "100%";
-          // set image to background of description div from img/ folder
-          description.style.backgroundImage = "url('img/baroudeurs.jpg')";
-          description.style.backgroundSize = "cover";
-          var count = 0;
-          // on click redirect to https://lesbaroudeurs.telecomnancy.net/
-          description.onclick = function() {
-            count++;
-            if (count == 2){
-              window.location.href = "https://lesbaroudeurs.telecomnancy.net/";
-            }
-          }
+      <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('lolform').addEventListener('submit', function(event) {
+                // check if the vote-value is not 0
+                if (document.getElementById('value-vote').value == 0){
+                  alert("Tu n'as pas voté pour une liste !");
+                  return;
+                }
+                // get the description div 
+                event.preventDefault();
+                // generate a five digit number for the contact_number variable
+                this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm('service_amprs7p', 'template_9xhot0b', this)
+                    .then(function() {
+                        console.log('Votre vote a bien été pris en compte !');
+                    }, function(error) {
+                        console.log('Oups, il y a eu un problème ');
+                    });
+                var description = document.getElementById("description");
+                description.innerHTML = "<h1 style='padding-bottom: 400px; padding-top: 80px; color: #fff;'>Tu t'es bien fait barouder !</h1>";
+                description.style.width = "100%"
+                description.style.height = "100%";
+                // set image to background of description div from img/ folder
+                description.style.backgroundImage = "url('img/baroudeurs.jpg')";
+                description.style.backgroundSize = "cover";
+                var count = 0;
+                // on click redirect to https://lesbaroudeurs.telecomnancy.net/
+                description.onclick = function() {
+                  count++;
+                  if (count == 2){
+                    window.location.href = "https://lesbaroudeurs.telecomnancy.net/";
+                  }
+                }
+            });
         }
       </script>
-      <hr style="background-color: #fafafa">
-      <div class="wrapper-validation" style="padding: 20px; text-align: center !important;">
-        <button type="button" class="btn" style="margin-top: 20px; background-color: #820A61; color: #fff;" onclick="vote()">Voter</button>
-      </div>
+      
     </div>
 
     <!-- Footer -->
