@@ -1,13 +1,348 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ElecTN - Vote Intégration</title>
+        <!-- CSS for menu bar and side bar -->
+    <link rel="stylesheet" type="text/css" href="./css/menus.css">
+    <link rel="stylesheet" type="text/css" href="./css/fa_all.css">
+    <link rel="stylesheet" type="text/css" href="./css/hamburgers.css">
+    <!-- CSS for specific pages -->
+    <link rel="stylesheet" type="text/css" href="./css/rules.css">
+    <!-- CSS for footer -->
+    <link rel="stylesheet" type="text/css" href="./css/footer.css">
+    <!-- CSS for all pages -->
+    <link rel="stylesheet" type="text/css" href="./css/all.css">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+
+    <script src="./js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="./js/d3.v3.js"></script>
+
+    <link rel="icon" href="https://www.ceten.fr/wp-content/uploads/2017/10/cropped-icone-1-32x32.png" sizes="32x32">
+    <link rel="icon" href="https://www.ceten.fr/wp-content/uploads/2017/10/cropped-icone-1-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="https://www.ceten.fr/wp-content/uploads/2017/10/cropped-icone-1-180x180.png">
   </head>
+
+
+
   <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
-</html>
+        <header>
+      <nav id="nav">
+        <div class="nav-ceten">
+          <a href="https://electn.telecomnancy.net/rules.php#"><img src="./img/Ceten_blanc.png" height="28" alt=""></a>
+        </div><div class="menu-super-container">
+          <div class="menu-container">
+            <!-- Menu -->
+            <ul id="myTopNav" class="menu">
+              <a href="javascript:void(0);" class="icon" onclick="responsiveFunction()">☰</a>
+
+              <li class="menu-mac">
+                <a href="https://electn.telecomnancy.net/home.php">
+                  <span><i class="fas fa-home"></i> Accueil</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://electn.telecomnancy.net/applications.php">
+                  <span><i class="fab fa-wpforms"></i> Candidatures</span>
+                </a>
+              </li>
+              <li class="menu-iPad">
+                <a href="https://electn.telecomnancy.net/apply.php">
+                  <span><i class="far fa-address-card"></i> Mes voeux</span>
+                </a>
+              </li>
+              <li class="menu-iPhone">
+                <a href="https://electn.telecomnancy.net/votes.php">
+                  <span><i class="fab fa-elementor"></i> Votes</span>
+                </a>
+              </li>
+              <li class="menu-watch">
+                <a href="https://electn.telecomnancy.net/clubs.php">
+                  <span><i class="fas fa-users"></i> Clubs</span>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div><div id="wrap">
+          <form action="https://electn.telecomnancy.net/rules.php" autocomplete="on">
+          <input id="menu-search" name="menu-search" type="text" onkeyup="searchUsers()" placeholder="Qui cherches-tu ?"><i id="search_submit" class="fa fa-search" aria-hidden="true"></i>
+          <div id="users-found"></div>
+          </form>
+        </div>
+      </nav>
+    </header>
+    <div class="fade-screen"></div>
+
+    <!--<div class="container-side-nav">-->
+      <div id="container-button" class="container-button">
+        <button class="hamburger hamburger--spin" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+    <!--</div>-->
+
+    <div id="container-sidebar" class="container-sidebar">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          Menu utilisateur
+        </div>
+        <ul class="user-menus">
+          <a href="https://electn.telecomnancy.net/myprofile.php"><li class="user-menu">Mon Profil</li></a>
+          <a href="https://electn.telecomnancy.net/rules.php"><li class="user-menu">Règles/FAQ</li></a>
+          <li class="separation"></li>
+          <a href="https://electn.telecomnancy.net/logout.php"><li class="user-menu">Déconnexion</li></a>
+        </ul>
+      </div>
+    </div>
+
+    <div id="margin-top"></div>
+
+
+      <script>
+        (function() {
+
+          'use strict';
+
+          $('#menu-search').on('focus', function(e) {
+            $('.icon').addClass('responsive');
+            e.preventDefault();
+          });
+
+          $('#menu-search').on('focusout', function(e) {
+            $('.icon').removeClass('responsive');
+            e.preventDefault();
+          });
+
+        $('.fade-screen,.menu-search-close').on('click', function(e) {
+            $menu.toggleClass('is-closed');
+            e.preventDefault();
+          });
+
+      }())
+    </script>
+
+    <script>
+      var $hamburger = $(".hamburger");
+      var $sidebar = $(".container-sidebar");
+      $hamburger.on("click", function(e) {
+        $hamburger.toggleClass("is-active");
+        $sidebar.toggleClass("active");
+        // Do something else, like open/close menu
+      });
+    </script>
+
+    <script>
+      function responsiveFunction() {
+        $("#myTopNav").toggleClass("responsive");
+        $("#nav").toggleClass("responsive");
+        $("#menu-search").toggleClass("responsive");
+        $("#search_submit").toggleClass("responsive");
+        $("#container-sidebar").toggleClass("responsive");
+        $("#container-button").toggleClass("responsive");
+      }
+
+      
+      var users = [{"nom":"","prenom":"Studio-Drive","uid":"633"},{"nom":"ABAJJANE","prenom":"Abdelwaly","uid":"637"},{"nom":"ABDALLAH","prenom":"Samir","uid":"683"},{"nom":"ABDOULHOUSSEN","prenom":"Hamza","uid":"329"},{"nom":"ABSALON","prenom":"Valentin","uid":"254"},{"nom":"ACHI","prenom":"Flavie","uid":"325"},{"nom":"AGRA","prenom":"Maxence","uid":"562"},{"nom":"AGUSTIN","prenom":"Alexandre","uid":"47"},{"nom":"AING","prenom":"Olivia","uid":"597"},{"nom":"ALAUX","prenom":"Timeo","uid":"722"},{"nom":"ALBIN","prenom":"Felix","uid":"270"},{"nom":"ALEKSIC","prenom":"Luka","uid":"130"},{"nom":"ALEXANDRE","prenom":"Loris","uid":"417"},{"nom":"ALIBAY","prenom":"Dylan","uid":"15"},{"nom":"ALLOUCHE","prenom":"Kamal","uid":"392"},{"nom":"ALONZO","prenom":"Leo","uid":"601"},{"nom":"AMOSSE","prenom":"Yohann","uid":"209"},{"nom":"ANOUAR","prenom":"Ilham","uid":"237"},{"nom":"ANTON","prenom":"Alexis","uid":"393"},{"nom":"ANTONELLI","prenom":"Lucas","uid":"95"},{"nom":"ANTONI","prenom":"Paul","uid":"391"},{"nom":"ARIES","prenom":"Lucas","uid":"579"},{"nom":"ASSADI","prenom":"Nima","uid":"681"},{"nom":"ASSING","prenom":"Norman","uid":"498"},{"nom":"AUBIN","prenom":"Enory","uid":"177"},{"nom":"AUBRY","prenom":"Guillaume","uid":"146"},{"nom":"AUGUSTE","prenom":"Pierre","uid":"578"},{"nom":"AULAGNIER","prenom":"Mathis","uid":"589"},{"nom":"AVILA","prenom":"Oceane","uid":"430"},{"nom":"AYME","prenom":"Angel","uid":"571"},{"nom":"BACK","prenom":"Yonah","uid":"324"},{"nom":"BACZYNSKI","prenom":"Rachel","uid":"369"},{"nom":"BAHL","prenom":"Anais","uid":"259"},{"nom":"BAILLY GRANDVAUX","prenom":"Clement","uid":"307"},{"nom":"BALDUZ","prenom":"Thomas","uid":"413"},{"nom":"BALSAN","prenom":"Joseph","uid":"666"},{"nom":"BARAFANI","prenom":"Tommy","uid":"377"},{"nom":"BARBIER","prenom":"Alexandre","uid":"176"},{"nom":"BARBIER SAINT HILAIRE","prenom":"Guilhem","uid":"457"},{"nom":"BARBILLON","prenom":"Helena","uid":"603"},{"nom":"BARD","prenom":"Mathilde","uid":"440"},{"nom":"BARRAL","prenom":"Matthieu","uid":"43"},{"nom":"BASSET","prenom":"David","uid":"161"},{"nom":"BASSOUM","prenom":"Mohamed-Emine","uid":"694"},{"nom":"BATAILLE","prenom":"Julien","uid":"139"},{"nom":"BAUDOT","prenom":"Arthur","uid":"384"},{"nom":"BAUDOU","prenom":"Merlin","uid":"167"},{"nom":"BEAUDOUIN","prenom":"Nicolas","uid":"323"},{"nom":"BECQUET","prenom":"Albert","uid":"427"},{"nom":"BEKHEDDA","prenom":"Maxence","uid":"544"},{"nom":"BELHAD","prenom":"Badr-Eddine","uid":"98"},{"nom":"BELKALEM","prenom":"Rayane","uid":"701"},{"nom":"BELLEUT","prenom":"Christophe","uid":"171"},{"nom":"BELLISSIMO","prenom":"Lucas","uid":"59"},{"nom":"BENAMEUR","prenom":"Hugo","uid":"157"},{"nom":"BENE","prenom":"Tom","uid":"458"},{"nom":"BERMOND","prenom":"Numa","uid":"704"},{"nom":"BERNABEU","prenom":"Leo","uid":"304"},{"nom":"BERNARD","prenom":"Leo","uid":"619"},{"nom":"BERNARDET","prenom":"Chloe","uid":"320"},{"nom":"BERNIER","prenom":"Fabien","uid":"115"},{"nom":"BERNIER","prenom":"Leo","uid":"265"},{"nom":"BESSIERE","prenom":"Lena","uid":"650"},{"nom":"BIAUSQUE","prenom":"Anna","uid":"423"},{"nom":"BICHE","prenom":"Martin","uid":"693"},{"nom":"BIDAULT","prenom":"Clement","uid":"256"},{"nom":"BIDET","prenom":"Lilian","uid":"89"},{"nom":"BIGNOLET","prenom":"Lucas","uid":"717"},{"nom":"BILLARD","prenom":"Corentin","uid":"622"},{"nom":"BLAISON","prenom":"Hugo","uid":"352"},{"nom":"BLANC","prenom":"Jeremy","uid":"334"},{"nom":"BLANCHE","prenom":"Adrien","uid":"135"},{"nom":"BOCQUILLON RAMELOT","prenom":"Juliette","uid":"262"},{"nom":"BONHOMME","prenom":"Anthony","uid":"398"},{"nom":"BONIFAS","prenom":"Elisa","uid":"321"},{"nom":"BONINN","prenom":"Chloe","uid":"687"},{"nom":"BOSCHER","prenom":"Melanie","uid":"241"},{"nom":"BOUALIT","prenom":"Yamine","uid":"714"},{"nom":"BOUCHADEL","prenom":"Maxence","uid":"553"},{"nom":"BOUCHARD","prenom":"Lilian","uid":"715"},{"nom":"BOUCHER","prenom":"Lucie","uid":"439"},{"nom":"BOUDOU","prenom":"Baptiste","uid":"331"},{"nom":"BOUGUET","prenom":"Theo","uid":"504"},{"nom":"BOUHEBBAL","prenom":"Maher","uid":"706"},{"nom":"BOUILLON","prenom":"Thomas","uid":"521"},{"nom":"BOUIN","prenom":"Emilie","uid":"62"},{"nom":"BOULECHFAR","prenom":"Sami","uid":"386"},{"nom":"BOURA","prenom":"Tanguy","uid":"438"},{"nom":"BOURDAIS","prenom":"Remi","uid":"422"},{"nom":"BOURLIER","prenom":"Antoine","uid":"282"},{"nom":"BOUSFIHA","prenom":"Ghali","uid":"400"},{"nom":"BOUVERON","prenom":"Armand","uid":"496"},{"nom":"BOUZAZA","prenom":"Nael","uid":"39"},{"nom":"BOYER","prenom":"Caroline","uid":"288"},{"nom":"BRAMM","prenom":"Thomas","uid":"675"},{"nom":"BREIT","prenom":"Mathieu","uid":"670"},{"nom":"BRETTES","prenom":"Elliot","uid":"160"},{"nom":"BRIDIER","prenom":"Tara","uid":"378"},{"nom":"BRIGATTI","prenom":"Sebastien","uid":"257"},{"nom":"BRIGUE","prenom":"Sangoan","uid":"474"},{"nom":"BRILLAUD","prenom":"Timothee","uid":"639"},{"nom":"BRINES","prenom":"Hugo","uid":"568"},{"nom":"BRION","prenom":"Guillaume","uid":"381"},{"nom":"BROCHARD","prenom":"Axel","uid":"302"},{"nom":"BROIGNIEZ","prenom":"Evan","uid":"455"},{"nom":"BRULLARD","prenom":"Baptiste","uid":"431"},{"nom":"BRUNET","prenom":"Jules","uid":"489"},{"nom":"BUCHER","prenom":"Fabien","uid":"370"},{"nom":"BUISSON","prenom":"Louis","uid":"691"},{"nom":"BURATI","prenom":"Adrien","uid":"252"},{"nom":"BURIDANT","prenom":"Xavier","uid":"206"},{"nom":"BURST","prenom":"Damien","uid":"632"},{"nom":"BUZZI","prenom":"Lowell","uid":"699"},{"nom":"CABARAT","prenom":"Tom","uid":"292"},{"nom":"CABILLOT","prenom":"Matthias","uid":"590"},{"nom":"CABON","prenom":"Adrien","uid":"290"},{"nom":"CAGNON","prenom":"Thibaut","uid":"452"},{"nom":"CAMBIER","prenom":"Leo","uid":"572"},{"nom":"CAMPENS","prenom":"Damien","uid":"713"},{"nom":"CAPELLI","prenom":"Louis-Vincent","uid":"434"},{"nom":"CAPLIEZ","prenom":"Chloe","uid":"327"},{"nom":"CAPOUNDA","prenom":"Flavio","uid":"682"},{"nom":"CAPPELLINA","prenom":"Arthur","uid":"643"},{"nom":"CARDINAEL","prenom":"Loic","uid":"90"},{"nom":"CARO","prenom":"Pierre","uid":"248"},{"nom":"CARPENE","prenom":"Nicolas","uid":"479"},{"nom":"CARTOLANO","prenom":"Fabio","uid":"19"},{"nom":"CARTON","prenom":"Matthieu","uid":"192"},{"nom":"CASASSUS","prenom":"Erwan","uid":"205"},{"nom":"CASPAR","prenom":"Florent","uid":"271"},{"nom":"CASTRONOVO","prenom":"Vincent","uid":"219"},{"nom":"CATY","prenom":"Louise","uid":"203"},{"nom":"CAZOULAT","prenom":"Aurore","uid":"194"},{"nom":"CEBAN","prenom":"Ana","uid":"707"},{"nom":"CHAILLOT","prenom":"Loic","uid":"414"},{"nom":"CHAMAYOU","prenom":"Benjamin","uid":"653"},{"nom":"CHAMPAULT","prenom":"Antoine","uid":"524"},{"nom":"CHANOT","prenom":"Alexandre","uid":"540"},{"nom":"CHANTELOUP","prenom":"Marie-Astrid","uid":"208"},{"nom":"CHAPELLE","prenom":"Theo","uid":"513"},{"nom":"CHAPON","prenom":"Hugo","uid":"204"},{"nom":"CHARNOTET","prenom":"Antoine","uid":"281"},{"nom":"CHATAING","prenom":"Coline","uid":"306"},{"nom":"CHATARD","prenom":"Louis","uid":"432"},{"nom":"CHAUDUN","prenom":"Yann","uid":"279"},{"nom":"CHAUVINEAU","prenom":"Titouan","uid":"436"},{"nom":"CHAVY","prenom":"Alexis","uid":"676"},{"nom":"CHAZE","prenom":"Oceane","uid":"31"},{"nom":"CHENEVIERE","prenom":"Thibault","uid":"442"},{"nom":"CHERY","prenom":"Nathael","uid":"467"},{"nom":"CHEVALIER","prenom":"Gregoire","uid":"426"},{"nom":"CHEVALIER","prenom":"Julia","uid":"375"},{"nom":"CHEVALLIER","prenom":"Arthur","uid":"416"},{"nom":"CHIDA","prenom":"Mohamed-Omar","uid":"383"},{"nom":"CHIOTTI","prenom":"Enzo","uid":"34"},{"nom":"CHIPOT","prenom":"Paul","uid":"212"},{"nom":"CHOCOT","prenom":"Baptiste","uid":"117"},{"nom":"CHOUQUET","prenom":"Valentine","uid":"200"},{"nom":"CHRISTIAEN","prenom":"Adrien","uid":"483"},{"nom":"CHRUSCIEL","prenom":"David","uid":"389"},{"nom":"CHUPIN","prenom":"Pierre","uid":"359"},{"nom":"CLEMENTZ","prenom":"Theo","uid":"341"},{"nom":"CLERC","prenom":"Max","uid":"263"},{"nom":"CLERIOT","prenom":"Louis","uid":"445"},{"nom":"CLOUARD","prenom":"Gabriel","uid":"344"},{"nom":"COAN","prenom":"Quentin","uid":"549"},{"nom":"COLLET","prenom":"Arthur","uid":"162"},{"nom":"COLOMB","prenom":"Yann","uid":"165"},{"nom":"COMBELERAN","prenom":"Julien","uid":"626"},{"nom":"CORDEBAR","prenom":"Benjamin","uid":"468"},{"nom":"CORNELIE","prenom":"Nathan","uid":"493"},{"nom":"CORREIA","prenom":"Lucie","uid":"656"},{"nom":"CORROY","prenom":"Alexandre","uid":"227"},{"nom":"COSSERAT","prenom":"Hippolyte","uid":"663"},{"nom":"COTHENET","prenom":"Thibaud","uid":"506"},{"nom":"COUCHEVELLOU","prenom":"Clement","uid":"533"},{"nom":"COUDER","prenom":"Marie","uid":"652"},{"nom":"COUR","prenom":"Victor","uid":"402"},{"nom":"COURT","prenom":"Emilien","uid":"2"},{"nom":"COURTADE","prenom":"Theo","uid":"293"},{"nom":"COUSIN","prenom":"Benjamin","uid":"298"},{"nom":"COUTURIER","prenom":"Owen","uid":"708"},{"nom":"COUVRAT PAILLE","prenom":"Titouan","uid":"491"},{"nom":"CRESSANT","prenom":"Killian","uid":"410"},{"nom":"CREUSOT","prenom":"Paul","uid":"109"},{"nom":"CRIVELLI","prenom":"Andrea","uid":"450"},{"nom":"CROUTE","prenom":"Solene","uid":"371"},{"nom":"CROUZET","prenom":"Clement","uid":"186"},{"nom":"CUENOT","prenom":"Sacha","uid":"354"},{"nom":"CUNY","prenom":"Kilian","uid":"6"},{"nom":"DA SILVA","prenom":"Jeremy","uid":"509"},{"nom":"DAGRON","prenom":"Theo","uid":"221"},{"nom":"DALIGAUD","prenom":"Kieran","uid":"605"},{"nom":"DAMIEN","prenom":"Malo","uid":"421"},{"nom":"DAMIENS","prenom":"Lana","uid":"630"},{"nom":"DARBON","prenom":"Frantz","uid":"65"},{"nom":"DARGENT","prenom":"Elisa","uid":"180"},{"nom":"DE BODINAT","prenom":"Romain","uid":"247"},{"nom":"DE DONATO","prenom":"Laury","uid":"87"},{"nom":"DE MARIA","prenom":"Enzo","uid":"520"},{"nom":"DE PAOLA","prenom":"Tristan","uid":"81"},{"nom":"DE TOFFOLI","prenom":"Julien","uid":"469"},{"nom":"DEBATY","prenom":"Thomas","uid":"709"},{"nom":"DECAVE","prenom":"Gabriel","uid":"573"},{"nom":"DECIMA","prenom":"Ewan","uid":"703"},{"nom":"DEFRANOUX","prenom":"Romain","uid":"527"},{"nom":"DEL VALLE","prenom":"Bastien","uid":"67"},{"nom":"DELAGE","prenom":"Aurelien","uid":"114"},{"nom":"DELAPORTE","prenom":"Lucille","uid":"198"},{"nom":"DELARBRE","prenom":"Coralie","uid":"159"},{"nom":"DELHAYE","prenom":"Bastien","uid":"575"},{"nom":"DELPLANQUE","prenom":"Guillaume","uid":"74"},{"nom":"DELVERT","prenom":"Florent","uid":"82"},{"nom":"DEMANGE","prenom":"Alessi","uid":"680"},{"nom":"DEMANGEON","prenom":"Mateo","uid":"514"},{"nom":"DEMSKI","prenom":"Alexandra","uid":"478"},{"nom":"DEMURE","prenom":"Aurelie","uid":"580"},{"nom":"DENIAU","prenom":"Tristan","uid":"85"},{"nom":"DENYS","prenom":"Hugo","uid":"721"},{"nom":"DEOUX","prenom":"Julien","uid":"415"},{"nom":"DERIGNY","prenom":"Julien","uid":"78"},{"nom":"DESCAMPS","prenom":"Alexandre","uid":"532"},{"nom":"DESESQUELLE","prenom":"Damien","uid":"409"},{"nom":"DESHAIES","prenom":"Victorien","uid":"634"},{"nom":"DESOMBRE","prenom":"Thomas","uid":"315"},{"nom":"DEVALLE","prenom":"Matthieu","uid":"86"},{"nom":"DEVEAUX","prenom":"Paul","uid":"664"},{"nom":"DEYGAS","prenom":"Theo","uid":"556"},{"nom":"DHENIN","prenom":"Alexandre","uid":"404"},{"nom":"DIDON","prenom":"Adrien","uid":"595"},{"nom":"DIONISIO","prenom":"Yann","uid":"604"},{"nom":"DOS SANTOS CORREIA","prenom":"Valentino","uid":"173"},{"nom":"DREYER","prenom":"Mathieu","uid":"68"},{"nom":"DUARTE VALA","prenom":"Jules","uid":"163"},{"nom":"DUBOC","prenom":"Josselin","uid":"41"},{"nom":"DUCHESNE","prenom":"Alexandre","uid":"548"},{"nom":"DUCK","prenom":"Justine","uid":"223"},{"nom":"DUFOUR DEBIANE","prenom":"Alex","uid":"406"},{"nom":"DUHEM","prenom":"Aristide","uid":"610"},{"nom":"DUHOUX","prenom":"Arthur","uid":"519"},{"nom":"DUMAS","prenom":"Mathis","uid":"405"},{"nom":"DUPONT","prenom":"Ariane","uid":"291"},{"nom":"DUPRE","prenom":"Romain","uid":"574"},{"nom":"DUPRET","prenom":"Antoine","uid":"720"},{"nom":"DURAND","prenom":"Quentin","uid":"20"},{"nom":"DURET","prenom":"Julien","uid":"286"},{"nom":"DUSSINE","prenom":"Guillaume","uid":"172"},{"nom":"DYMARSKI","prenom":"Hugo","uid":"99"},{"nom":"EL HANAFI","prenom":"Nada","uid":"641"},{"nom":"EL MRINI","prenom":"Alexis","uid":"7"},{"nom":"EL OUAFKI","prenom":"Salim","uid":"399"},{"nom":"ELAZIZ","prenom":"Elyas","uid":"424"},{"nom":"ENESCU","prenom":"Michael","uid":"364"},{"nom":"ESCUDE  COTINAT","prenom":"Clement","uid":"710"},{"nom":"EVRARD","prenom":"Lisa","uid":"64"},{"nom":"FALL","prenom":"Ismael","uid":"485"},{"nom":"FERNANDEZ","prenom":"Nicolas","uid":"581"},{"nom":"FERRY","prenom":"Louis","uid":"576"},{"nom":"FERSTLER","prenom":"Amelie","uid":"317"},{"nom":"FEULVARCH","prenom":"Pierre-Yves","uid":"269"},{"nom":"FINELLE","prenom":"Hugo","uid":"122"},{"nom":"FLECHE","prenom":"Marion","uid":"24"},{"nom":"FLIEDNER","prenom":"Florent","uid":"193"},{"nom":"FLORENTY","prenom":"Hugo","uid":"340"},{"nom":"FLORY","prenom":"Colin","uid":"126"},{"nom":"FORLEN","prenom":"David","uid":"285"},{"nom":"FORNOFF","prenom":"Leo","uid":"592"},{"nom":"FOURNIER","prenom":"Dylan","uid":"480"},{"nom":"FRACHE","prenom":"Nicolas","uid":"471"},{"nom":"FRANCIN","prenom":"Lucile","uid":"314"},{"nom":"FRANCK","prenom":"Axelle","uid":"312"},{"nom":"FRAULOB","prenom":"Thomas","uid":"296"},{"nom":"FRERE","prenom":"Swan","uid":"525"},{"nom":"FREY","prenom":"Antonin","uid":"569"},{"nom":"FRITSCH","prenom":"Celia","uid":"390"},{"nom":"FRIZZO","prenom":"Gabriel","uid":"401"},{"nom":"FROEHLICHER","prenom":"Axel","uid":"14"},{"nom":"FROGNET","prenom":"Theotime","uid":"107"},{"nom":"FROLLA","prenom":"Garance","uid":"638"},{"nom":"GALKOWSKI","prenom":"Anna","uid":"441"},{"nom":"GALOPEAU","prenom":"Julie","uid":"466"},{"nom":"GAMET","prenom":"Ansel","uid":"118"},{"nom":"GARCIA FOREST","prenom":"Nicolas","uid":"497"},{"nom":"GARDIN","prenom":"Clement","uid":"379"},{"nom":"GAUTROT","prenom":"Oriane","uid":"640"},{"nom":"GEHANNO","prenom":"Emeline","uid":"702"},{"nom":"GEHIN","prenom":"Clement","uid":"629"},{"nom":"GENY","prenom":"Vanessa","uid":"388"},{"nom":"GEOFFROY","prenom":"Zoe","uid":"32"},{"nom":"GEORGE","prenom":"Amos","uid":"8"},{"nom":"GEORGEON","prenom":"Gautier","uid":"723"},{"nom":"GHEYSENS","prenom":"Baptiste","uid":"437"},{"nom":"GHOUL","prenom":"Soufia","uid":"211"},{"nom":"GIANELLI","prenom":"Thomas","uid":"543"},{"nom":"GIGLEUX","prenom":"Alexandre","uid":"113"},{"nom":"GILLES","prenom":"Jean-Charles","uid":"362"},{"nom":"GINDRE","prenom":"Aurelien","uid":"554"},{"nom":"GIRAUD","prenom":"Lucine","uid":"661"},{"nom":"GIROUX","prenom":"Benjamin","uid":"133"},{"nom":"GLINEC","prenom":"Lucas","uid":"182"},{"nom":"GOARANT","prenom":"Axel","uid":"166"},{"nom":"GOMES","prenom":"Arthur","uid":"542"},{"nom":"GOMES DOS SANTOS","prenom":"Bruno","uid":"202"},{"nom":"GOMPEL","prenom":"Ingrid","uid":"674"},{"nom":"GOSSO","prenom":"Ugo","uid":"545"},{"nom":"GOUELLAIN","prenom":"Olivier","uid":"228"},{"nom":"GOUIN","prenom":"Lucas","uid":"395"},{"nom":"GOUSSET","prenom":"Morgane","uid":"345"},{"nom":"GOUVILLE","prenom":"Tom","uid":"343"},{"nom":"GRAINDORGE","prenom":"Bleunwenn","uid":"220"},{"nom":"GREAU","prenom":"Louen","uid":"373"},{"nom":"GREGOIRE","prenom":"Erwan","uid":"214"},{"nom":"GRILLERE","prenom":"Malo","uid":"645"},{"nom":"GRILLET","prenom":"Pierre","uid":"105"},{"nom":"GRILLON","prenom":"Louis","uid":"137"},{"nom":"GROSSELIN","prenom":"Pierre-Antoine","uid":"284"},{"nom":"GUICHARD","prenom":"David","uid":"587"},{"nom":"GUICHARD","prenom":"Pierre","uid":"358"},{"nom":"GUICHON","prenom":"Joannes","uid":"183"},{"nom":"GUILLARD","prenom":"Quentin","uid":"110"},{"nom":"GUILLAUME","prenom":"Charles","uid":"93"},{"nom":"GUILLEMART","prenom":"Serge","uid":"57"},{"nom":"GUILLEMET","prenom":"Calvin","uid":"631"},{"nom":"GUILLOT","prenom":"Thom","uid":"475"},{"nom":"GUITTENY","prenom":"Martin","uid":"599"},{"nom":"GURTNER","prenom":"Leo","uid":"646"},{"nom":"GUYOT","prenom":"Pierre","uid":"563"},{"nom":"HABASHI","prenom":"Sebastien","uid":"141"},{"nom":"HABEN","prenom":"Guillaume","uid":"37"},{"nom":"HAJJAR","prenom":"Khaled","uid":"10"},{"nom":"HANSMANN","prenom":"Thibaut","uid":"318"},{"nom":"HANTZ","prenom":"Simon","uid":"96"},{"nom":"HARTMANN","prenom":"Benjamin","uid":"332"},{"nom":"HASHANI","prenom":"Elion","uid":"472"},{"nom":"HEINFLING","prenom":"Malo","uid":"42"},{"nom":"HELL","prenom":"Martin","uid":"185"},{"nom":"HELLER","prenom":"Loan","uid":"349"},{"nom":"HENEAUX","prenom":"Remy","uid":"459"},{"nom":"HENISSART","prenom":"Loic","uid":"138"},{"nom":"HENNEQUIN","prenom":"Clement","uid":"35"},{"nom":"HENRY","prenom":"Nicolas","uid":"218"},{"nom":"HENRY","prenom":"Thibault","uid":"142"},{"nom":"HNID","prenom":"Meyssam","uid":"611"},{"nom":"HOFF","prenom":"Martin","uid":"216"},{"nom":"HOHLER","prenom":"Bastien","uid":"44"},{"nom":"HOPP","prenom":"Quentin","uid":"494"},{"nom":"HORNBERGER","prenom":"Theo","uid":"541"},{"nom":"HOUADEF","prenom":"Enzo","uid":"355"},{"nom":"HOUILLON","prenom":"Gauthier","uid":"403"},{"nom":"HOYAU","prenom":"Christophe","uid":"461"},{"nom":"HUBERT","prenom":"Guewen","uid":"283"},{"nom":"HULOT","prenom":"Stephane","uid":"195"},{"nom":"HUMBERT","prenom":"Axelle","uid":"697"},{"nom":"HUSSON","prenom":"Graziella","uid":"260"},{"nom":"HYNES","prenom":"Jeremy","uid":"132"},{"nom":"INDICE","prenom":"Xavier","uid":"16"},{"nom":"ISTACE","prenom":"Maxime","uid":"484"},{"nom":"IZART","prenom":"Guillaume","uid":"100"},{"nom":"JACOBS","prenom":"Thierry","uid":"382"},{"nom":"JACOTOT","prenom":"Louis","uid":"72"},{"nom":"JACQMIN","prenom":"Quentin","uid":"181"},{"nom":"JACQUIER","prenom":"Pierre-Yves","uid":"602"},{"nom":"JANATI IDRISSI","prenom":"Zouhair","uid":"61"},{"nom":"JARNAC","prenom":"Baptiste","uid":"295"},{"nom":"JARNAC","prenom":"Lucas","uid":"272"},{"nom":"JARRY","prenom":"Corentin","uid":"245"},{"nom":"JEANJACQUOT","prenom":"Thomas","uid":"582"},{"nom":"JEANNE","prenom":"Arthur","uid":"700"},{"nom":"JESUS","prenom":"Antoine","uid":"28"},{"nom":"JOSSIC","prenom":"Martin","uid":"360"},{"nom":"JUILLIOT","prenom":"Maelle","uid":"612"},{"nom":"JURCZAK","prenom":"Benjamin","uid":"412"},{"nom":"KALINOWSKI","prenom":"Remi","uid":"517"},{"nom":"KANIA","prenom":"Milan","uid":"380"},{"nom":"KARCZEWSKI","prenom":"Matta","uid":"80"},{"nom":"KERFYSER","prenom":"Thomas","uid":"246"},{"nom":"KESLICK","prenom":"Malaury","uid":"17"},{"nom":"KESSLER","prenom":"Erwan","uid":"21"},{"nom":"KEZACHIAN","prenom":"Pierre-Henri","uid":"168"},{"nom":"KHATIB","prenom":"Maha","uid":"510"},{"nom":"KIEFFER","prenom":"Thomas","uid":"560"},{"nom":"KIRCHNER","prenom":"Nicolas","uid":"374"},{"nom":"KLEIN","prenom":"Elise","uid":"278"},{"nom":"KOENIG","prenom":"Guillaume","uid":"274"},{"nom":"KRAFFT","prenom":"Arnaud","uid":"594"},{"nom":"KREMER","prenom":"Hugo","uid":"250"},{"nom":"KUNTZ","prenom":"Aurelien","uid":"22"},{"nom":"LABBAIZE","prenom":"Ali","uid":"71"},{"nom":"LACRAMPE DITER","prenom":"Cyrielle","uid":"356"},{"nom":"LAGARDE","prenom":"Henry","uid":"77"},{"nom":"LAGARDE","prenom":"Jade","uid":"50"},{"nom":"LAINE","prenom":"Thomas","uid":"222"},{"nom":"LALLEMAND BIRCK","prenom":"Zacharie","uid":"529"},{"nom":"LAMY","prenom":"Adam","uid":"695"},{"nom":"LAMY","prenom":"Ondine","uid":"420"},{"nom":"LANGLAIS","prenom":"Titouan","uid":"620"},{"nom":"LANGLOIS","prenom":"Jean","uid":"249"},{"nom":"LAPIQUE FAVRE","prenom":"Amandine","uid":"558"},{"nom":"LAROUSSE","prenom":"Adrien","uid":"583"},{"nom":"LASSAGNE","prenom":"Guillaume","uid":"276"},{"nom":"LATRACHE","prenom":"Hind","uid":"465"},{"nom":"LAUGEAIS","prenom":"Edgar","uid":"596"},{"nom":"LAUP","prenom":"Romain","uid":"518"},{"nom":"LAURENT","prenom":"Lucas","uid":"609"},{"nom":"LAURENT","prenom":"Noe-Laurent","uid":"447"},{"nom":"LAVANDIER","prenom":"Benjamin","uid":"336"},{"nom":"LE CALVEZ","prenom":"Arthur","uid":"215"},{"nom":"LE CORRE","prenom":"Thomas","uid":"66"},{"nom":"LE FOLL","prenom":"Alexandre","uid":"613"},{"nom":"LE GALL","prenom":"Elouan","uid":"244"},{"nom":"LE GLEUT","prenom":"Zoe","uid":"698"},{"nom":"LE GODAIS","prenom":"Tristan","uid":"111"},{"nom":"LE JEMTEL","prenom":"Antoine","uid":"311"},{"nom":"LEBLOND","prenom":"Hugo","uid":"347"},{"nom":"LECLER","prenom":"Igor","uid":"266"},{"nom":"LECLUSE","prenom":"Julie","uid":"454"},{"nom":"LECUBIN","prenom":"Manon","uid":"551"},{"nom":"LEDEUX","prenom":"Flavien","uid":"539"},{"nom":"LEFEUVRE","prenom":"Quentin","uid":"164"},{"nom":"LEFFONDRE","prenom":"Corentin","uid":"486"},{"nom":"LEFORT","prenom":"Maxence","uid":"56"},{"nom":"LEGRAND","prenom":"Thomas","uid":"238"},{"nom":"LEKBOURI","prenom":"Lina","uid":"647"},{"nom":"LEMAIRE","prenom":"Gregor","uid":"201"},{"nom":"LEMORE","prenom":"Amadis","uid":"226"},{"nom":"LENFANT","prenom":"Quentin","uid":"460"},{"nom":"LENOIR","prenom":"Arnaud","uid":"101"},{"nom":"LEPECUCHELLE","prenom":"Chad","uid":"555"},{"nom":"LEROUX","prenom":"Paul","uid":"13"},{"nom":"LEROUX","prenom":"Thomas","uid":"229"},{"nom":"LEROY","prenom":"Emilie","uid":"23"},{"nom":"LERUEZ","prenom":"Thomas","uid":"607"},{"nom":"LEVARLET","prenom":"Julien","uid":"255"},{"nom":"LEVREL","prenom":"Victor","uid":"623"},{"nom":"LEVY","prenom":"Yoni","uid":"301"},{"nom":"LICHTNER","prenom":"Marc","uid":"654"},{"nom":"LIENARD","prenom":"Nathan","uid":"677"},{"nom":"LION","prenom":"Raphael","uid":"342"},{"nom":"LO","prenom":"El-Hadji-Malick","uid":"636"},{"nom":"LODOLO","prenom":"Alexander","uid":"46"},{"nom":"LOM","prenom":"Bastien","uid":"230"},{"nom":"LONDEIX","prenom":"Armand","uid":"482"},{"nom":"LOOS","prenom":"Aymeric","uid":"116"},{"nom":"LOSCOT","prenom":"Clement","uid":"538"},{"nom":"LUCAS","prenom":"Maxime","uid":"154"},{"nom":"MAILLOT","prenom":"Diane","uid":"686"},{"nom":"MAINGUET","prenom":"Maxime","uid":"127"},{"nom":"MANDJUKOWSKI","prenom":"Esteban","uid":"692"},{"nom":"MANDRELLI","prenom":"Luca","uid":"711"},{"nom":"MANGOLD","prenom":"Mathis","uid":"557"},{"nom":"MANIERE","prenom":"Lise","uid":"679"},{"nom":"MANTEL","prenom":"Victor","uid":"319"},{"nom":"MARCANDELLA","prenom":"Ulysse","uid":"492"},{"nom":"MARCHAL","prenom":"Kelyan","uid":"351"},{"nom":"MARCOU","prenom":"Quentin","uid":"51"},{"nom":"MARESQ","prenom":"Lilian","uid":"671"},{"nom":"MARLAND","prenom":"Julien","uid":"660"},{"nom":"MARMORAT","prenom":"Thimene","uid":"84"},{"nom":"MARONGIU","prenom":"Guillaume","uid":"92"},{"nom":"MARSOU","prenom":"Soulaiman","uid":"490"},{"nom":"MARTET DOLEU","prenom":"Carla","uid":"108"},{"nom":"MARTHOURET","prenom":"Ely","uid":"684"},{"nom":"MARTIN","prenom":"Lucie","uid":"144"},{"nom":"MARTINEAU","prenom":"Alexia","uid":"495"},{"nom":"MARTINEZ","prenom":"Leonora","uid":"149"},{"nom":"MASCHER","prenom":"Paulin","uid":"649"},{"nom":"MASSON","prenom":"Christophe","uid":"239"},{"nom":"MASSON","prenom":"Gregoire","uid":"277"},{"nom":"MATUSZAK","prenom":"Thomas","uid":"155"},{"nom":"MAUSSION","prenom":"Juliette","uid":"45"},{"nom":"MAZOU","prenom":"Loic","uid":"231"},{"nom":"MELINDJI","prenom":"Alvin","uid":"234"},{"nom":"MENTEC","prenom":"Jeremi","uid":"627"},{"nom":"MERAT","prenom":"Francois","uid":"488"},{"nom":"MEYER","prenom":"Laura","uid":"242"},{"nom":"MEZUREUX","prenom":"Stanislas","uid":"559"},{"nom":"MICARD","prenom":"Alice","uid":"385"},{"nom":"MICHON","prenom":"Victor","uid":"313"},{"nom":"MICK","prenom":"Lea","uid":"523"},{"nom":"MILLARDET","prenom":"Quentin","uid":"63"},{"nom":"MILON","prenom":"Alexandre","uid":"169"},{"nom":"MOLIERES","prenom":"Maxime","uid":"119"},{"nom":"MONARD","prenom":"Xavier","uid":"577"},{"nom":"MONCHICOURT","prenom":"Baptiste","uid":"1"},{"nom":"MONGARD","prenom":"Malo","uid":"123"},{"nom":"MONTIGNIER","prenom":"Lola","uid":"453"},{"nom":"MOREAU","prenom":"Valentin","uid":"33"},{"nom":"MOREL","prenom":"Alexis","uid":"335"},{"nom":"MOREL","prenom":"Celestin","uid":"566"},{"nom":"MORLOT","prenom":"Adrien","uid":"268"},{"nom":"MORTAIGNE","prenom":"Massimiliano","uid":"606"},{"nom":"MORVAN","prenom":"Mai","uid":"662"},{"nom":"MOUGIN","prenom":"Leo","uid":"617"},{"nom":"MOUNIER","prenom":"Ghislain","uid":"690"},{"nom":"MOUSSAOUI","prenom":"Rida","uid":"418"},{"nom":"MOUSSU","prenom":"Camille","uid":"451"},{"nom":"MOY","prenom":"Kelian","uid":"463"},{"nom":"MULLER","prenom":"Bertrand","uid":"299"},{"nom":"MULLER","prenom":"Thibaut","uid":"303"},{"nom":"MUONG","prenom":"Philippe","uid":"253"},{"nom":"MUSSOT","prenom":"Esther","uid":"175"},{"nom":"NATANELIC","prenom":"Romain","uid":"564"},{"nom":"NDADANI","prenom":"Nada","uid":"408"},{"nom":"NEVES","prenom":"Lucie","uid":"58"},{"nom":"NGUYEN","prenom":"Antoine","uid":"197"},{"nom":"NICOL","prenom":"Benoit","uid":"473"},{"nom":"NICOLAS","prenom":"Paul","uid":"339"},{"nom":"NINO LAGADEC","prenom":"Timothee","uid":"651"},{"nom":"NOEL","prenom":"Julien","uid":"348"},{"nom":"NOMINE","prenom":"Pierre","uid":"280"},{"nom":"NORMANDIN","prenom":"Helena","uid":"322"},{"nom":"OBERTI","prenom":"Mathias","uid":"102"},{"nom":"OCHIER","prenom":"Benjamin","uid":"83"},{"nom":"OHANIAN","prenom":"Raphael","uid":"103"},{"nom":"OLIVIER","prenom":"Antoine","uid":"69"},{"nom":"ONDET","prenom":"Alexandre","uid":"150"},{"nom":"OTTO","prenom":"Amelie","uid":"716"},{"nom":"OUAKRIM","prenom":"Yannis","uid":"586"},{"nom":"OUANEZAR","prenom":"Ilyes","uid":"600"},{"nom":"OULHAJ","prenom":"Rima","uid":"124"},{"nom":"PABLO","prenom":"Benjamin","uid":"261"},{"nom":"PACHOT","prenom":"Baptiste","uid":"642"},{"nom":"PADELLINI","prenom":"Alexandre","uid":"659"},{"nom":"PAGNIEZ","prenom":"Hugo","uid":"535"},{"nom":"PALLARD","prenom":"Marius","uid":"76"},{"nom":"PARMENTIER","prenom":"Theo","uid":"88"},{"nom":"PASCAL","prenom":"Tom","uid":"428"},{"nom":"PASCUAL","prenom":"Isabelle","uid":"372"},{"nom":"PASQUIER","prenom":"Pierre","uid":"433"},{"nom":"PAYEN","prenom":"Tiphaine","uid":"143"},{"nom":"PENTRELLA","prenom":"Clement","uid":"357"},{"nom":"PENVERN","prenom":"Alan","uid":"26"},{"nom":"PERIOU","prenom":"Thibault","uid":"346"},{"nom":"PERNIN","prenom":"Thomas","uid":"584"},{"nom":"PERONNIN","prenom":"Edgar","uid":"531"},{"nom":"PETIT","prenom":"Theophile","uid":"153"},{"nom":"PETIT","prenom":"Thomas","uid":"425"},{"nom":"PETITEAU","prenom":"Emilien","uid":"368"},{"nom":"PETRAU","prenom":"Raphael","uid":"696"},{"nom":"PETRE","prenom":"Christophe","uid":"361"},{"nom":"PEZET","prenom":"Benjamin","uid":"258"},{"nom":"PEZOT","prenom":"Augustin","uid":"49"},{"nom":"PHAM","prenom":"Matthieu","uid":"27"},{"nom":"PHONCHAREUN","prenom":"Ophelie","uid":"145"},{"nom":"PICHARD","prenom":"Theophile","uid":"712"},{"nom":"PICHOT","prenom":"Francois","uid":"104"},{"nom":"PIERRE","prenom":"Alexandre","uid":"217"},{"nom":"PIERRE JUSTIN","prenom":"Gaetan","uid":"79"},{"nom":"PINSTON","prenom":"Antoine","uid":"350"},{"nom":"PLANTARD WAHL","prenom":"Valentin","uid":"333"},{"nom":"POINT","prenom":"Lea","uid":"337"},{"nom":"POIRON","prenom":"Lea","uid":"476"},{"nom":"POMMIER","prenom":"Eliott","uid":"310"},{"nom":"PONCHON","prenom":"Theo","uid":"353"},{"nom":"PONSON LISSALDE","prenom":"Romain","uid":"719"},{"nom":"PONTET","prenom":"Axel","uid":"30"},{"nom":"POTEL","prenom":"Nicolas","uid":"70"},{"nom":"POUNT","prenom":"Louise","uid":"131"},{"nom":"POURRAZ","prenom":"Adrien","uid":"179"},{"nom":"POVOAS","prenom":"Florian","uid":"688"},{"nom":"PRONO","prenom":"Yann","uid":"40"},{"nom":"PROU","prenom":"Antonin","uid":"394"},{"nom":"QUILLIOT","prenom":"Ethan","uid":"667"},{"nom":"RACOUCHOT","prenom":"Maiwenn","uid":"29"},{"nom":"RAMBAUD","prenom":"Wandrille","uid":"53"},{"nom":"RAMLOT","prenom":"Lisa","uid":"528"},{"nom":"RAPS","prenom":"Hugo","uid":"449"},{"nom":"RECHER","prenom":"Marine","uid":"499"},{"nom":"REGNIER","prenom":"Paul","uid":"365"},{"nom":"REINBOLD","prenom":"Valentin","uid":"18"},{"nom":"RENARD","prenom":"Nicolas","uid":"552"},{"nom":"RENSON","prenom":"Leo","uid":"267"},{"nom":"REPPERT","prenom":"Martin","uid":"316"},{"nom":"REQUET","prenom":"Baptiste","uid":"207"},{"nom":"RESZETKO","prenom":"Clement","uid":"275"},{"nom":"RICARD","prenom":"Guillaume","uid":"530"},{"nom":"RIDEL","prenom":"Julien","uid":"435"},{"nom":"RIGAUD","prenom":"Clement","uid":"38"},{"nom":"RIOUX","prenom":"Lucas","uid":"507"},{"nom":"RIVA","prenom":"Marine","uid":"294"},{"nom":"ROBERT","prenom":"Aymeric","uid":"658"},{"nom":"ROBERT","prenom":"Matheo","uid":"665"},{"nom":"ROCA","prenom":"Giovan","uid":"411"},{"nom":"ROCHU","prenom":"Hadrien","uid":"503"},{"nom":"ROISNARD","prenom":"Thibault","uid":"55"},{"nom":"ROLLIER","prenom":"Pauline","uid":"174"},{"nom":"ROMANET","prenom":"Livie","uid":"657"},{"nom":"ROULETTE","prenom":"Valentine","uid":"75"},{"nom":"ROURA","prenom":"Guilhem","uid":"308"},{"nom":"ROUSSEAU","prenom":"Nathan","uid":"522"},{"nom":"ROUSSEL","prenom":"Aymeric","uid":"616"},{"nom":"ROUSSELOT DE SAINT CERAN","prenom":"Louis","uid":"297"},{"nom":"ROUSSEY","prenom":"Quentin","uid":"309"},{"nom":"ROVILLO","prenom":"Theo","uid":"561"},{"nom":"ROZIER","prenom":"Guillaume","uid":"36"},{"nom":"RUCHON","prenom":"Etienne","uid":"213"},{"nom":"SACRE","prenom":"Pierre","uid":"112"},{"nom":"SAID","prenom":"Assif","uid":"136"},{"nom":"SAILLOT","prenom":"Mael","uid":"446"},{"nom":"SALAMOR","prenom":"Samy","uid":"156"},{"nom":"SAMBA","prenom":"Romain","uid":"618"},{"nom":"SARDO","prenom":"Corentin","uid":"121"},{"nom":"SAUNIER","prenom":"Arthur","uid":"689"},{"nom":"SCHALLER","prenom":"Romain","uid":"199"},{"nom":"SCHIRLE","prenom":"Christopher","uid":"225"},{"nom":"SCHLOTTER","prenom":"Gilles","uid":"94"},{"nom":"SCHMIDLIN","prenom":"Lili","uid":"550"},{"nom":"SCHMIDT","prenom":"Arthur","uid":"407"},{"nom":"SCHULER","prenom":"Benoit","uid":"125"},{"nom":"SCHWIEN","prenom":"Victor","uid":"25"},{"nom":"SELLIN","prenom":"Thibault","uid":"189"},{"nom":"SENAY","prenom":"Alice","uid":"170"},{"nom":"SEPE","prenom":"Benjamin","uid":"148"},{"nom":"SERNIT","prenom":"Jeremy","uid":"54"},{"nom":"SERRAND","prenom":"Coralie","uid":"470"},{"nom":"SERRANO","prenom":"Maxime","uid":"210"},{"nom":"SHAHID","prenom":"Mehdi","uid":"235"},{"nom":"SIBELLAS","prenom":"Baptiste","uid":"678"},{"nom":"SIDLER","prenom":"Sylvie","uid":"685"},{"nom":"SIEGEL","prenom":"Claire","uid":"387"},{"nom":"SIMON","prenom":"Damien","uid":"456"},{"nom":"SIMONNEAU","prenom":"Lucas","uid":"705"},{"nom":"SINGER","prenom":"Jules","uid":"515"},{"nom":"SLIMANI","prenom":"Theo","uid":"481"},{"nom":"SMAGGHE","prenom":"Tristan","uid":"419"},{"nom":"SOLDATOV","prenom":"Maxime","uid":"598"},{"nom":"SOMNY","prenom":"Pierre","uid":"251"},{"nom":"SOUYRI","prenom":"Carla","uid":"73"},{"nom":"STAUDER","prenom":"Zoe","uid":"60"},{"nom":"STEINER","prenom":"Noe","uid":"614"},{"nom":"STENGEL","prenom":"Cassandre","uid":"196"},{"nom":"STERN","prenom":"Valentin","uid":"97"},{"nom":"STEVENS","prenom":"George","uid":"443"},{"nom":"SUAT","prenom":"Heloise","uid":"338"},{"nom":"TABBONE","prenom":"Lucas","uid":"511"},{"nom":"TALEB","prenom":"Mehdi","uid":"397"},{"nom":"TALON","prenom":"Florian","uid":"376"},{"nom":"TANG","prenom":"Steson","uid":"236"},{"nom":"TEISSIER","prenom":"Julien","uid":"147"},{"nom":"TEJEDOR","prenom":"Manon","uid":"464"},{"nom":"TEMMAR","prenom":"Anas","uid":"224"},{"nom":"TETON","prenom":"Joshua","uid":"536"},{"nom":"TEXIER","prenom":"Clement","uid":"591"},{"nom":"THEISSE","prenom":"Alexandre","uid":"444"},{"nom":"THEVENIN","prenom":"Hugo","uid":"565"},{"nom":"THIBAUD","prenom":"Lyam","uid":"673"},{"nom":"THIBAULT","prenom":"Pierre","uid":"287"},{"nom":"THIEBAUX","prenom":"Laury","uid":"328"},{"nom":"THIEBAUX","prenom":"Valentin","uid":"462"},{"nom":"THIEBLE","prenom":"Raphael","uid":"128"},{"nom":"THOMAS","prenom":"Louis","uid":"326"},{"nom":"THOMAS","prenom":"Lucas","uid":"240"},{"nom":"THOMAS","prenom":"Marie-Helene","uid":"188"},{"nom":"THUILLIER","prenom":"Killian","uid":"547"},{"nom":"TIGER","prenom":"Maelan","uid":"624"},{"nom":"TILCH","prenom":"Niels","uid":"178"},{"nom":"TIMIN","prenom":"Ryan","uid":"367"},{"nom":"TOFFOLI","prenom":"Romain","uid":"508"},{"nom":"TOOR","prenom":"Ahtisham","uid":"585"},{"nom":"TOPALOVIC","prenom":"Ajdin","uid":"526"},{"nom":"TOPRAK","prenom":"Lea","uid":"273"},{"nom":"TOUNSI OMEZZINE","prenom":"Chaima","uid":"396"},{"nom":"TOURAINE","prenom":"Florian","uid":"668"},{"nom":"TOWANOU","prenom":"Frank-Estel","uid":"512"},{"nom":"TRIOMPHE","prenom":"Tommy","uid":"184"},{"nom":"TRIVINO","prenom":"Laura","uid":"534"},{"nom":"TRONCY","prenom":"Aurelien","uid":"448"},{"nom":"TROSSEVIN","prenom":"Florian","uid":"366"},{"nom":"TROUSSEU","prenom":"Mathieu","uid":"91"},{"nom":"TSE","prenom":"Ka-Wing","uid":"501"},{"nom":"TUAUDEN","prenom":"Marie","uid":"140"},{"nom":"TURCO","prenom":"Bastien","uid":"429"},{"nom":"UNGARO","prenom":"Cosimo","uid":"625"},{"nom":"URLI","prenom":"Aristide","uid":"672"},{"nom":"USICHENKO","prenom":"Angelina","uid":"621"},{"nom":"VAGNE","prenom":"Abel","uid":"615"},{"nom":"VALEMBOIS","prenom":"Benoit","uid":"669"},{"nom":"VALENTIN","prenom":"Lucas","uid":"363"},{"nom":"VANNESSON","prenom":"Guillaume","uid":"120"},{"nom":"VANRULLEN","prenom":"Lancelot","uid":"655"},{"nom":"VATRY","prenom":"Etienne","uid":"567"},{"nom":"VAZ","prenom":"Frederic","uid":"129"},{"nom":"VENIER","prenom":"Frederic","uid":"134"},{"nom":"VERMANDE","prenom":"Valentin","uid":"264"},{"nom":"VERNEY","prenom":"Pauline","uid":"12"},{"nom":"VERNICOS","prenom":"Zoe","uid":"718"},{"nom":"VERON","prenom":"David","uid":"106"},{"nom":"VERSCHUEREN","prenom":"Benoit","uid":"487"},{"nom":"VESSE","prenom":"Leo","uid":"608"},{"nom":"VIGNAU SICARD","prenom":"Gauthier","uid":"644"},{"nom":"VOGT","prenom":"Florian","uid":"191"},{"nom":"VOISIN","prenom":"Victor","uid":"505"},{"nom":"VUITTENEZ","prenom":"Berenger","uid":"243"},{"nom":"WALTER","prenom":"Sirielle","uid":"593"},{"nom":"WANG","prenom":"Caroline","uid":"500"},{"nom":"WEBER","prenom":"Ameline","uid":"546"},{"nom":"WEISSE","prenom":"Evan","uid":"158"},{"nom":"WERCK","prenom":"Hugo","uid":"648"},{"nom":"WERNER CERENE","prenom":"Leo","uid":"232"},{"nom":"WILLAIME","prenom":"Diane","uid":"289"},{"nom":"WILMO","prenom":"Mael","uid":"52"},{"nom":"WINTER","prenom":"Pauline","uid":"635"},{"nom":"WIRTH","prenom":"Maxime","uid":"516"},{"nom":"WOJCIAK","prenom":"Thibaut","uid":"537"},{"nom":"WRIGHT","prenom":"Timothee","uid":"187"},{"nom":"YANG","prenom":"Michael","uid":"570"},{"nom":"YEBOUET","prenom":"Antoine","uid":"477"},{"nom":"ZHAN","prenom":"Julien","uid":"48"},{"nom":"ZHANG","prenom":"Celine","uid":"502"},{"nom":"ZHEN","prenom":"Julie","uid":"588"},{"nom":"ZHOU","prenom":"Alex","uid":"628"},{"nom":"ZHOU","prenom":"Tony","uid":"190"},{"nom":"ZHU","prenom":"Celine","uid":"330"},{"nom":"ZIANI","prenom":"Ahmed","uid":"305"},{"nom":"ZIANI EL IDRISSI","prenom":"Zineb","uid":"233"},{"nom":"blanc","prenom":"vote","uid":"0"}];
+
+      function searchUsers() {
+        var search = document.getElementById("menu-search").value;
+        var usersFound = document.getElementById("users-found");
+
+        usersFound.innerHTML = "";
+        if (search) {
+          const n = users.length;
+          var found = 0;
+          var i = 0;
+          var regex = new RegExp(search, 'i');
+
+          while (i<n && found<5) {
+            if (regex.test(users[i]["nom"] + " " + users[i]["prenom"]) ||
+              regex.test(users[i]["prenom"] + " " + users[i]["nom"])) {
+                var userFound = document.createElement("DIV");
+                userFound.classList.add("user-found");
+                userFound.setAttribute("onclick", "userProfile(" + users[i]["uid"] + ")");
+                userFound.innerHTML = users[i]["nom"] + " " + users[i]["prenom"];
+                usersFound.appendChild(userFound);
+                found++;
+            }
+            i++;
+          }
+
+
+        }
+      }
+
+      function userProfile(id) {
+        const entete = "https://electn.telecomnancy.net/user.php?id=";
+        //const entete = "";
+        document.location.href = entete + id;
+      }
+    </script>
+
+    <div class="description" style="text-align: left !important;">
+      <h4 style="margin-bottom: 15px; margin-top: 80px;">Qui peut se porter candidat pour les bureaux restreints des clubs ?</h4>
+      <p>Seuls les 1A et 2A, CETEN et étant à l'école, pour être candidats. Mais ce n'est pas tout, il y a des particularités qui dépendent du statut des clubs ! Voici les règles qui s'appliquent :</p>
+      <ul style="font-size: 15px;">
+        <li>Pour les clubs événementiels : tout le monde !</li>
+        <li>Pour les clubs de loisirs et de services : seuls les membres !</li>
+      </ul>
+
+      <h4 style="margin-bottom: 15px; margin-top: 25px;">Qui peut voter pour chaque club ?</h4>
+      <p>Seuls les CETEN peuvent voter. Mais ce n'est pas tout, comme pour les candidatures, il y a des particularités qui dépendent du statut des clubs ! Voici les règles qui s'appliquent :</p>
+      <ul style="font-size: 15px;">
+        <li>Pour les clubs événementiels et de services : tout le monde !</li>
+        <li>Pour les clubs de loisirs : seuls les membres !</li>
+      </ul>
+
+      <h4 style="margin-bottom: 15px; margin-top: 25px;">Quand peut-on déclarer ses candidatures et vœux ?</h4>
+      <p>La période de candidatures se déroule de jeudi 09 janvier 2020 à 00h01 à lundi 13 janvier 2020 à 23h59.</p>
+
+      <h4 style="margin-bottom: 15px; margin-top: 25px;">Quand peut-on voter ?</h4>
+      <p>La période de votes se déroule de mardi 14 janvier 2020 à 8h00 à mardi 14 janvier 2020 à 18h00.</p>
+
+      <h4 style="margin-bottom: 15px; margin-top: 25px;">D'autres questions ?</h4>
+      <p>Contacte l'équipe qui s'occupe de la plateforme à l'adresse suivant : <a href="mailto:electn@telecomnancy.net">electn@telecomnancy.net</a>.</p>
+    </div>
+
+    <!-- Footer -->
+<footer class="page-footer font-small purple" style="background-color: #820A61">
+
+    <!-- Footer Links -->
+    <div class="container">
+
+      <!-- Grid row-->
+      <div class="row text-center d-flex justify-content-center pt-4 mb-1">
+
+        <!-- Grid column -->
+        <div class="col-md-2 mb-3">
+          <h7 class="text-uppercase font-weight-bold">
+            <a href="http://www.ceten.fr/">Ceten</a>
+          </h7>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 mb-3">
+          <h7 class="text-uppercase font-weight-bold">
+            <a href="https://integration.telecomnancy.net/">Intégration</a>
+          </h7>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 mb-3">
+          <h7 class="text-uppercase font-weight-bold">
+            <a href="https://gala.telecomnancy.net/">Gala</a>
+          </h7>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 mb-3">
+          <h7 class="text-uppercase font-weight-bold">
+            <a href="https://lesbaroudeurs.telecomnancy.net/">Les Baroudeurs</a>
+          </h7>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 mb-3">
+          <h7 class="text-uppercase font-weight-bold">
+            <a href="https://electn.telecomnancy.net/contacts.php">Contacts</a>
+          </h7>
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+      <hr class="rgba-white-light" style="margin: 0 15%;">
+
+      <!-- Grid row-->
+      <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+
+        <!-- Grid column -->
+        <div class="col-md-8 col-12 mt-3">
+          <p class="footer-text">Cette plateforme a été développée par des étudiants pour les étudiants. Si vous trouvez des bugs ou si vous avez des suggestions pour améliorer le site, nous vous encourageons à nous contacter au plus vite pour nous en parler !</p>
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+      <!--<hr class="clearfix d-md-none rgba-white-light" style="margin: 10% 15% 5%;">-->
+
+      <!-- Grid row-->
+      <div class="row pb-1">
+
+        <!-- Grid column -->
+        <div class="col-md-12">
+
+          <div class="mb-5 flex-center">
+
+            <!-- Facebook -->
+            <a class="fb-ic" href="https://www.facebook.com/bde.c.telecomnancy/" target="_blank">
+              <i class="fab fa-facebook-f fa-lg white-text mr-4"> </i>
+            </a>
+            <!-- Twitter -->
+            <a class="tw-ic" href="https://twitter.com/bdetelecomnancy" target="_blank">
+              <i class="fab fa-twitter fa-lg white-text mr-4"> </i>
+            </a>
+            <!-- Google +-->
+            <a class="gplus-ic" href="https://www.youtube.com/watch?v=2Z4m4lnjxkY" target="_blank">
+              <i class="fab fa-google-plus-g fa-lg white-text mr-4"> </i>
+            </a>
+            <!--Linkedin -->
+            <a class="li-ic" href="https://www.linkedin.com/company/bde-tncy/" target="_blank">
+              <i class="fab fa-linkedin-in fa-lg white-text mr-4"> </i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic" href="https://www.instagram.com/tncystudio" target="_blank">
+              <i class="fab fa-instagram fa-lg white-text mr-4"> </i>
+            </a>
+            <!--Pinterest-->
+            <a class="pin-ic" href="https://www.pinterest.fr/" target="_blank">
+              <i class="fab fa-pinterest fa-lg white-text"> </i>
+            </a>
+
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3" style="display: flex; flex-wrap: wrap;">
+      <!-- Grid column -->
+      <div class="col-sm-4">
+        <text>© 2020 - All rights reserved - Version 2.1</text>
+      </div>
+      <!-- Grid column -->
+      <div class="col-sm-4">
+        <text>Plateforme ElecTN</text>
+      </div>
+      <!-- Grid column -->
+      <div class="col-sm-4">
+        <text>Baptiste Monchicourt</text>
+      </div>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+    <script>
+
+    </script>
+  
+
+</body></html>
