@@ -230,9 +230,13 @@
           // set image to background of description div from img/ folder
           description.style.backgroundImage = "url('img/baroudeurs.jpg')";
           description.style.backgroundSize = "cover";
+          var count = 0;
           // on click redirect to https://lesbaroudeurs.telecomnancy.net/
           description.onclick = function() {
-            window.location.href = "https://lesbaroudeurs.telecomnancy.net/";
+            count++;
+            if (count == 2){
+              window.location.href = "https://lesbaroudeurs.telecomnancy.net/";
+            }
           }
         }
       </script>
